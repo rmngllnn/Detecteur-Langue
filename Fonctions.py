@@ -18,18 +18,18 @@ modifier selon les petits trucs qu'on rencontre qui nous embête
 
 
 #Fonction qui enlève la ponctuation. Fonctionne
-def punctLess(texte):
+def punct_less(texte):
     for punct in str.punctuation:
         texte = texte.replace(punct, "")
     return texte
 
 #Fonction qui enlève les signes API
-def apiLess(texte):
+def api_less(texte):
     pass
 
 
 #Fonction qui enlève les nombres (utile ?). Fonctionne
-def numbLess(texte):
+def numb_less(texte):
     numbers = ["0","1","2","3","4","5","6","7","8","9"]
     for num in numbers :
         texte = texte.replace(num, "")
@@ -38,7 +38,7 @@ def numbLess(texte):
 
 #Génère une liste de bigramme (en tuple je crois)
 def ngrams(texte) :
-    txtBigrams = list(bigrams(texte))
+    txt_bigrams = list(bigrams(texte))
     return txtBigrams
 
 
