@@ -7,8 +7,8 @@ Created on Sat May  9 10:19:26 2020
 """
 
 import string as str
-import nltk
 from nltk import bigrams
+import numpy as np
 
 """
 Questionnement : est-ce qu'on ferait pas une fonction nettoyage (comme en JAVA)
@@ -39,7 +39,28 @@ def numb_less(texte):
 #Génère une liste de bigramme (en tuple je crois)
 def ngrams(texte) :
     txt_bigrams = list(bigrams(texte))
-    return txtBigrams
+    return txt_bigrams
 
 
-print(ngrams("Republic of Afghanistan, is a landlocked country in South and Central Asia."))
+#print(ngrams("Republic of Afghanistan, is a landlocked country in South and Central Asia."))
+
+
+def vectorisation (texte):
+    list_ngrams = ngrams(texte)
+    dict = {} #on crée un dictionnaire vide
+    i = 0
+    for gram in list_ngrams:
+        if gram not in dict:
+            dict[gram] = 0 #il crée la clé qui lui donne une valeur 
+    for gram in dict:
+        dict[gram] = np.zeros(len(dict)) #on crée des vecteurs nuls de longueur du dictionnaire
+        dict[gram][i] = 1
+        i = i+1
+    vecteur = np.zeros(len(dict)) #on crée des vecteurs nuls de longueur du dictionnaire
+    for gram in list_ngrams:
+        vecteur += dict[gram]        
+    return vecteur
+
+print(vectorisation(ngrams("Republic of Afghanistan, is a landlocked country in South and Central Asia.")))
+        
+
