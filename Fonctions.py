@@ -3,17 +3,17 @@
 """
 Created on Sat May  9 10:19:26 2020
 
-@authors: Romane GALLIENNE, Cindy PEREIRA, Nadège DEMANEE
+@authors: Romane GALLIENNE, Cindy PEREIRA, Nadège DEMANÉE
 """
 
 import string as str
-from nltk import bigrams
+from nltk import ngrams
 import numpy as np
 
 """
 Questionnement : est-ce qu'on ferait pas une fonction nettoyage (comme en JAVA)
 pour enlever tout ce qui nous gêne (ponctuation, signes API), et qu'on peut
-modifier selon les petits trucs qu'on rencontre qui nous embête
+modifier selon les petits trucs qu'on rencontre qui nous embêtent
 """
 
 
@@ -37,30 +37,31 @@ def numb_less(texte):
 
 
 #Génère une liste de bigramme (en tuple je crois)
-def ngrams(texte) :
-    txt_bigrams = list(bigrams(texte))
-    return txt_bigrams
+def separate(texte, n) :
+    txt_ngrams = list(ngrams(texte, n))
+    return txt_ngrams
 
-
-#print(ngrams("Republic of Afghanistan, is a landlocked country in South and Central Asia."))
+#bigrammes = ngrams("Republic of Afghanistan, is a landlocked country comm in South and Central Asia.")
+#print(bigrammes)
 
 
 def vectorisation (texte):
-    list_ngrams = ngrams(texte)
+    list_ngrams = separate(texte, 2)
     dict = {} #on crée un dictionnaire vide
     i = 0
     for gram in list_ngrams:
         if gram not in dict:
-            dict[gram] = 0 #il crée la clé qui lui donne une valeur 
+            dict[gram] = 0 #il crée la clé qui lui donne une valeur
     for gram in dict:
         dict[gram] = np.zeros(len(dict)) #on crée des vecteurs nuls de longueur du dictionnaire
         dict[gram][i] = 1
         i = i+1
     vecteur = np.zeros(len(dict)) #on crée des vecteurs nuls de longueur du dictionnaire
     for gram in list_ngrams:
-        vecteur += dict[gram]        
-    return vecteur
+        vecteur += dict[gram]
+    return dict, vecteur
 
-print(vectorisation(ngrams("Republic of Afghanistan, is a landlocked country in South and Central Asia.")))
-        
-
+dict, vecteur = vectorisation("Republic of Afghanistan, is a landlocked country in South and Central Asia.")
+for key in dict :
+    print(key)
+print(vecteur)
