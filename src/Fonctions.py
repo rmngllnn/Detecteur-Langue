@@ -48,20 +48,25 @@ def separate(texte, n) :
 #print(bigrammes)
 
 
-def vectorisation (texte):
+def createDico(texte) :
     list_ngrams = separate(texte, 2)
     dict = {} #on crée un dictionnaire vide
     i = 0
-    for gram in list_ngrams:
+    for gram in list_ngrams :
         if gram not in dict:
             dict[gram] = 0 #il crée la clé qui lui donne une valeur
     for gram in dict:
         dict[gram] = np.zeros(len(dict)) #on crée des vecteurs nuls de longueur du dictionnaire
         dict[gram][i] = 1
         i = i+1
+    return dict
+
+def vectorisation (texte, dict):
+    list_ngrams = separate(texte, 2)
     vecteur = np.zeros(len(dict)) #on crée des vecteurs nuls de longueur du dictionnaire
     for gram in list_ngrams:
-        vecteur += dict[gram]
+        if gram in dict :
+            vecteur += dict[gram]
     return vecteur, dict
 
 
@@ -82,9 +87,9 @@ def decompress_pickle(fileName):
 # Récupération du vecteur de corpus test Francais :
 data = np.load('variables/FrancaisVector.npy')
 vecteurAnglais = data['vector']
-print(vecteurAnglais)
+#print(vecteurAnglais)
 
 # Récupération du dictionnaire de corpus test Francais :
 fileName = 'variables/FrancaisDico.pbz2'
 dicoAnglais = decompress_pickle(fileName)
-print(dicoAnglais)
+#print(dicoAnglais)
