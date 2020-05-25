@@ -30,20 +30,10 @@ def recuperationTextes(langue) :
 def recuperationDico(langue) :
     text = recuperationTextes(langue)
     dico = createDico(text)
-    f2 = open("variables/" + langue + "Dico" + ".pkl", 'wb')
-    pickle.dump(dico, f2)
-    f2.close()
-    '''
-    f2 = open("variables/" + langue + "Dico" + ".pkl", 'rb')
-    data = pickle.load(f2)
-    f2.close()
-    compressed_pickle("variables/" + langue + "Dico", data)
-    '''
+    f = open("variables/" + langue + "Dico" + ".pkl", 'wb')
+    pickle.dump(dico, f)
+    f.close()
 
-
-def compressed_pickle(title, data):
-    with bz2.BZ2File(title + ".pbz2", "w") as f:
-        cPickle.dump(data, f)
 
 recuperationDico("Anglais")
 recuperationDico("Allemand")

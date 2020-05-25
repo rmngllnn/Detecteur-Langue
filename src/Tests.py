@@ -1,7 +1,5 @@
 from Fonctions import *
 import sys
-import numpy as np
-from numpy.linalg import norm
 
 '''
 A LANCER AVEC UN NOM DE FICHIER EN ARGUMENT
@@ -9,14 +7,12 @@ A LANCER AVEC UN NOM DE FICHIER EN ARGUMENT
 
 
 
-def comp(text, language) :
-    fileName = 'variables/' + language + 'Dico.pbz2'
-    dicoCorp = decompress_pickle(fileName)
-    data = np.load('variables/' + language + 'Vector.npy')
-    vectorCorp = data['vector']
-    vector, _ = vectorisation(txt, dicoCorp)
-    similarite = similariteCosinus(dicoCorpus, dicoTrain)
-    return similarite
+def similarite(dicoTrain, language) :
+    fileName = 'variables/' + language + 'Dico.pkl'
+    data = open(fileName, 'rb')
+    dicoCorpus = pickle.load(data)
+    data.close()
+    return similariteCosinus(dicoCorpus, dicoTrain), similariteDistanceEuclidienne(dicoCorpus, dicoTrain)
 
 def maxSim(liste) :
     indMax = 0
@@ -27,25 +23,36 @@ def maxSim(liste) :
 
 if len(sys.argv) > 1 :
     txt = readFile(sys.argv[1])
-    simList = []
-    simAll = comp(txt, "Allemand")
-    simList.append(simAll)
-    simAng = comp(txt, "Anglais")
-    simList.append(simAng)
-    simEs = comp(txt, "Espagnol")
-    simList.append(simEs)
-    simFr = comp(txt, "Francais")
-    simList.append(simFr)
-    simPt = comp(txt, "Portugais")
-    simList.append(simPt)
+    txt = numb_less(txt)
+    dicoTrain = createDico(txt)
 
-    print("Allemand : ", simAll)
-    print("Anglais : ", simAng)
-    print("Espagnol : ", simEs)
-    print("Francais : ", simFr)
-    print("Portugais : ", simPt)
+    simListCos, simListDE = [], []
+    simAllCos, simAllDE = similarite(dicoTrain, "Allemand")
+    simListCos.append(simAllCos)
+    simListDE.append(simAllDE)
+    simAngCos, simAngDE = similarite(dicoTrain, "Anglais")
+    simListCos.append(simAngCos)
+    simListDE.append(simAngDE)
+    simEsCos, simEsDE = similarite(dicoTrain, "Espagnol")
+    simListCos.append(simEsCos)
+    simListDE.append(simEsDE)
+    simFrCos, simFrDE = similarite(dicoTrain, "Francais")
+    simListCos.append(simFrCos)
+    simListDE.append(simFrDE)
+    simPtCos, simPtDE = similarite(dicoTrain, "Portugais")
+    simListCos.append(simPtCos)
+    simListDE.append(simPtDE)
 
-    ind = maxSim(simList)
+    print("Allemand : cos ->", simAllCos, "DE ->", simAllDE)
+    print("Anglais : cos ->", simAngCos, "DE ->", simAngDE)
+    print("Espagnol : cos ->", simEsCos, "DE ->", simEsDE)
+    print("Francais : cos ->", simFrCos, "DE ->", simFrDE)
+    print("Portugais : cos ->", simPtCos, "DE ->", simPtDE)
 
-    languages = ["Allemand", "Anglais", "Espagnol", "Francais", "Portugais"]
-    print("Le texte semble être en ", languages[ind])
+    indCos = maxSim(simListCos)
+    indDE = maxSim(simListDE)
+
+    langages = ["Allemand", "Anglais", "Espagnol", "Francais", "Portugais"]
+    print()
+    print("D'après le cosinus, le texte semble être en", langages[indCos])
+    print("D'après la distance euclidienne, le texte semble être en", langages[indDE])

@@ -8,11 +8,9 @@ Created on Sat May  9 10:19:26 2020
 
 import string as str
 from nltk import ngrams
-import numpy as np
 import pickle
-import bz2
-import _pickle as cPickle
-from math import sqrt
+import re
+import math
 
 """
 Questionnement : est-ce qu'on ferait pas une fonction nettoyage (comme en JAVA)
@@ -22,31 +20,21 @@ modifier selon les petits trucs qu'on rencontre qui nous embêtent
 
 
 #Fonction qui enlève la ponctuation. Fonctionne
-def punct_less(texte):
+def punct_less(text):
     for punct in str.punctuation:
-        texte = texte.replace(punct, "")
-    return texte
-
-#Fonction qui enlève les signes API
-def api_less(texte):
-    pass
+        text = text.replace(punct, "")
+    return text
 
 
 #Fonction qui enlève les nombres (utile ?). Fonctionne
 def numb_less(texte):
-    numbers = ["0","1","2","3","4","5","6","7","8","9"]
-    for num in numbers :
-        texte = texte.replace(num, "")
-    return texte
+    return re.sub("[0-9]+", "", texte)
 
 
 #Génère une liste de bigramme (en tuple je crois)
 def separate(texte, n) :
     txt_ngrams = list(ngrams(texte, n))
     return txt_ngrams
-
-#bigrammes = ngrams("Republic of Afghanistan, is a landlocked country comm in South and Central Asia.")
-#print(bigrammes)
 
 
 def createDico(texte) :
@@ -58,13 +46,18 @@ def createDico(texte) :
         dict[gram] += 1
     return dict
 
+def similariteDistanceEuclidienne(dicoCorpus, dicoTrain) :
+    distance = 0
+    for elmt in set(dicoCorpus.keys()).intersection(dicoTrain.keys()) :
+        distance += (dicoCorpus[elmt]-dicoTrain[elmt])**2
+    return math.sqrt(distance)
 
 def similariteCosinus(dicoCorpus, dicoTrain) :
-    prodScal = 0
+    prodScal, normCorpus, normTrain = 0, 0, 0
     for elmt in set(dicoCorpus.keys()).intersection(dicoTrain.keys()) :
-        prodScal += dicoCorpus[elmt]*dicoCorpus[elmt]
-        normCorpus += dicoCorpus[elmt]^2
-        normTrain += dicoTrain[elmt]^2
+        prodScal += dicoCorpus[elmt]*dicoTrain[elmt]
+        normCorpus += dicoCorpus[elmt]**2
+        normTrain += dicoTrain[elmt]**2
     norm = math.sqrt(normCorpus)*math.sqrt(normTrain)
     return prodScal / norm
 
@@ -74,16 +67,3 @@ def readFile(fileName) :
     text = fic.read()
     fic.close()
     return text
-
-# Load any compressed pickle file
-def decompress_pickle(fileName):
-    data = bz2.BZ2File(fileName, 'rb')
-    data = cPickle.load(data)
-    return data
-
-'''
-# Récupération du dictionnaire de corpus test Francais :
-fileName = 'variables/FrancaisDico.pbz2'
-dicoAnglais = decompress_pickle(fileName)
-#print(dicoAnglais)
-'''
