@@ -12,6 +12,7 @@ import numpy as np
 import pickle
 import bz2
 import _pickle as cPickle
+from math import sqrt
 
 """
 Questionnement : est-ce qu'on ferait pas une fonction nettoyage (comme en JAVA)
@@ -51,24 +52,21 @@ def separate(texte, n) :
 def createDico(texte) :
     list_ngrams = separate(texte, 2)
     dict = {} #on crée un dictionnaire vide
-    i = 0
     for gram in list_ngrams :
         if gram not in dict:
             dict[gram] = 0 #il crée la clé qui lui donne une valeur
-    for gram in dict:
-        dict[gram] = np.zeros(len(dict)) #on crée des vecteurs nuls de longueur du dictionnaire
-        dict[gram][i] = 1
-        i = i+1
+        dict[gram] += 1
     return dict
 
-def vectorisation (texte, dict):
-    list_ngrams = separate(texte, 2)
-    vecteur = np.zeros(len(dict)) #on crée des vecteurs nuls de longueur du dictionnaire
-    for gram in list_ngrams:
-        if gram in dict :
-            vecteur += dict[gram]
-    return vecteur, dict
 
+def similariteCosinus(dicoCorpus, dicoTrain) :
+    prodScal = 0
+    for elmt in set(dicoCorpus.keys()).intersection(dicoTrain.keys()) :
+        prodScal += dicoCorpus[elmt]*dicoCorpus[elmt]
+        normCorpus += dicoCorpus[elmt]^2
+        normTrain += dicoTrain[elmt]^2
+    norm = math.sqrt(normCorpus)*math.sqrt(normTrain)
+    return prodScal / norm
 
 # On ouvre un fichier
 def readFile(fileName) :
@@ -83,13 +81,9 @@ def decompress_pickle(fileName):
     data = cPickle.load(data)
     return data
 
-
-# Récupération du vecteur de corpus test Francais :
-data = np.load('variables/FrancaisVector.npy')
-vecteurAnglais = data['vector']
-#print(vecteurAnglais)
-
+'''
 # Récupération du dictionnaire de corpus test Francais :
 fileName = 'variables/FrancaisDico.pbz2'
 dicoAnglais = decompress_pickle(fileName)
 #print(dicoAnglais)
+'''

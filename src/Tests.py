@@ -7,11 +7,6 @@ from numpy.linalg import norm
 A LANCER AVEC UN NOM DE FICHIER EN ARGUMENT
 '''
 
-# Renvoie la similarite entre deux mots
-def sim (vecteurA, vecteurB) :
-    prodScal = np.dot(vecteurA, vecteurB)
-    multNorm = norm(vecteurA)*norm(vecteurB)
-    return (prodScal / multNorm)
 
 
 def comp(text, language) :
@@ -20,7 +15,7 @@ def comp(text, language) :
     data = np.load('variables/' + language + 'Vector.npy')
     vectorCorp = data['vector']
     vector, _ = vectorisation(txt, dicoCorp)
-    similarite = sim(vector, vectorCorp)
+    similarite = similariteCosinus(dicoCorpus, dicoTrain)
     return similarite
 
 def maxSim(liste) :

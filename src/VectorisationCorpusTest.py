@@ -27,29 +27,26 @@ def recuperationTextes(langue) :
         txt += readFile(directory + "/" + fileName)
     return txt
 
-def recuperationVecteurs(langue) :
+def recuperationDico(langue) :
     text = recuperationTextes(langue)
-    vector, dico = vectorisation(text)
-    '''
-    f = open("variables/" + langue + "Vector"+ ".npy", "wb")
-    np.savez(f, vector=vector)
-    f.close()
-    '''
+    dico = createDico(text)
     f2 = open("variables/" + langue + "Dico" + ".pkl", 'wb')
     pickle.dump(dico, f2)
     f2.close()
+    '''
     f2 = open("variables/" + langue + "Dico" + ".pkl", 'rb')
     data = pickle.load(f2)
     f2.close()
     compressed_pickle("variables/" + langue + "Dico", data)
+    '''
 
 
 def compressed_pickle(title, data):
     with bz2.BZ2File(title + ".pbz2", "w") as f:
         cPickle.dump(data, f)
 
-recuperationVecteurs("Anglais")
-recuperationVecteurs("Allemand")
-recuperationVecteurs("Espagnol")
-recuperationVecteurs("Francais")
-recuperationVecteurs("Portugais")
+recuperationDico("Anglais")
+recuperationDico("Allemand")
+recuperationDico("Espagnol")
+recuperationDico("Francais")
+recuperationDico("Portugais")
