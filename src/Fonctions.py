@@ -31,13 +31,13 @@ def numb_less(texte):
     return re.sub("[0-9]+", "", texte)
 
 
-#Génère une liste de bigramme (en tuple je crois)
+#Génère une liste de ngramme
 def separate(texte, n) :
     txt_ngrams = list(ngrams(texte, n))
     return txt_ngrams
 
 
-def createDico(texte) :
+def createDico(texte) :s
     list_ngrams = separate(texte, 2)
     dict = {} #on crée un dictionnaire vide
     for gram in list_ngrams :
