@@ -3,8 +3,10 @@
 """
 Created on Thu Jun 11 14:28:03 2020
 
-@author: romane
+@author: Romane Gallienne, Cindy Pereira
 """
+
+#penser à installer wikipedia -> pip3 install wikipedia
 import wikipedia 
 
 #fichier = open("french.txt", "w")
