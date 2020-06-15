@@ -36,8 +36,8 @@ def separate(texte, n) :
     txt_ngrams = list(ngrams(texte, n))
     return txt_ngrams
 
-
-def createDico(texte) :s
+#crée un dictionnaire
+def createDico(texte) :
     list_ngrams = separate(texte, 2)
     dict = {} #on crée un dictionnaire vide
     for gram in list_ngrams :
@@ -46,12 +46,14 @@ def createDico(texte) :s
         dict[gram] += 1
     return dict
 
+#calcul des similarités par la distance euclidienne
 def similariteDistanceEuclidienne(dicoCorpus, dicoTrain) :
     distance = 0
     for elmt in set(dicoCorpus.keys()).intersection(dicoTrain.keys()) :
         distance += (dicoCorpus[elmt]-dicoTrain[elmt])**2
     return math.sqrt(distance)
 
+#calcul des similarités par similarité des cosinus
 def similariteCosinus(dicoCorpus, dicoTrain) :
     prodScal, normCorpus, normTrain = 0, 0, 0
     for elmt in set(dicoCorpus.keys()).intersection(dicoTrain.keys()) :

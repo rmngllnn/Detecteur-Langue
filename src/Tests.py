@@ -5,6 +5,7 @@ import sys
 A LANCER AVEC UN NOM DE FICHIER EN ARGUMENT
 '''
 
+import matplotlib.pyplot as plt
 
 
 def similarite(dicoTrain, language) :
