@@ -11,7 +11,6 @@ Dans le code, les graphiques sont codés par ordre alphabétique et non par
 ordre d'affichage dans le terminal
 '''
 
-import Tests
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
@@ -37,7 +36,7 @@ plt.show()
 #Pour comparer cosinus/distance euclidienne pour chaque langue
 
 names = ['Cosinus', 'Distance\neuclidienne']
-values = [1]
+values = [1, 0.5]
 
 fig2 = plt.figure(constrained_layout=True)
 spec2 = gridspec.GridSpec(ncols=3, nrows=3, figure=fig2)
