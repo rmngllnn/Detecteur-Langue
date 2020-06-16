@@ -15,6 +15,7 @@ def similarite(dicoTrain, language) :
     data.close()
     return similariteCosinus(dicoCorpus, dicoTrain), similariteDistanceEuclidienne(dicoCorpus, dicoTrain)
 
+#fonction pour chercher la similarité la plus grande
 def maxSim(liste) :
     indMax = 0
     for i in range (0, len(liste)) :
@@ -22,11 +23,24 @@ def maxSim(liste) :
             indMax = i
     return indMax
 
+
+#Test car on doit chercher la distance euclidienne la plus petite
+#Après qqs tests, ne changentrien a priori (à voir si ce que j'ai fait est correct aussi)
+def minSim(liste) :
+    indMax = max(liste)
+    for i in range (0, len(liste)) :
+        if liste[i] < indMax :
+            indMax = i
+    return indMax
+
+
+
 if len(sys.argv) > 1 :
     txt = readFile(sys.argv[1])
     txt = numb_less(txt)
     dicoTrain = createDico(txt)
 
+#création des listes de similarités pour étiqueter la langue du texte
     simListCos, simListDE = [], []
     simAllCos, simAllDE = similarite(dicoTrain, "Allemand")
     simListCos.append(simAllCos)
@@ -51,7 +65,7 @@ if len(sys.argv) > 1 :
     print("Portugais : cos ->", simPtCos, "DE ->", simPtDE)
 
     indCos = maxSim(simListCos)
-    indDE = maxSim(simListDE)
+    indDE = minSim(simListDE)
 
     langages = ["Allemand", "Anglais", "Espagnol", "Francais", "Portugais"]
     print()
