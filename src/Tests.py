@@ -5,9 +5,6 @@ import sys
 A LANCER AVEC UN NOM DE FICHIER EN ARGUMENT
 '''
 
-import matplotlib.pyplot as plt
-
-
 def similarite(dicoTrain, language) :
     fileName = 'variables/' + language + 'Dico.pkl'
     data = open(fileName, 'rb')
@@ -25,7 +22,8 @@ def maxSim(liste) :
 
 
 #Test car on doit chercher la distance euclidienne la plus petite
-#Après qqs tests, ne changentrien a priori (à voir si ce que j'ai fait est correct aussi)
+#Après qqs tests, ça ne change rien a priori 
+#à voir si ce que j'ai fait est correct aussi mais je crois pas
 def minSim(liste) :
     indMax = max(liste)
     for i in range (0, len(liste)) :
