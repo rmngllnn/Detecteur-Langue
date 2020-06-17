@@ -3,7 +3,7 @@
 """
 Created on Mon Jun 15 15:25:37 2020
 
-@author: romane
+@author: Romane GALLIENNE, Cindy PEREIRA
 """
 
 '''
@@ -11,28 +11,30 @@ Dans le code, les graphiques sont codés par ordre alphabétique et non par
 ordre d'affichage dans le terminal
 '''
 
-import matplotlib
+
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
+from Evaluation import *
 
 
-'''
-#Pour comparer cosinus/distance euclidienne finale
+
+#Pour comparer cosinus/distance euclidienne finale (pour l'évaluation)
 
 fig = plt.figure()
 
 x = ["Cosinus", "Distance\nEuclidienne"]
-height = [1, 0.5]
+height = [evaluationCosinus(testsCos), evaluationDE(testsDE)]
 width = 0.5
 
-plt.bar(x, height, width, color='b' )
-plt.title('Valeur du cosinus et de la distance euclidienne\n pour un texte')
+plt.bar(x, height, width, color='lightblue') #couleur cf. fichier CouleurMatplotlib.png
+plt.title('Evaluation de performance entre\n la similarité de cosinus et la distance euclidienne')
+plt.ylim(0,45)
 plt.show()
+
+
+
+
 '''
-
-
-
-
 #Pour comparer cosinus/distance euclidienne pour chaque langue
 
 names = ['Cosinus', 'Distance\neuclidienne']
@@ -64,4 +66,4 @@ plt.title('français')
 portugais = fig2.add_subplot(spec2[1, 1])
 plt.bar(names, values)
 plt.title('Portugais')
-
+'''

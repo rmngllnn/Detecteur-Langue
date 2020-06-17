@@ -60,8 +60,8 @@ for texte in textes :
     indCos = maxSim(simListCos)
     indDE = maxSim(simListDE)
 
-    print("Cos :", langues[indCos], languesTextes[i])
-    print("DE :", langues[indDE], languesTextes[i])
+    #print("Cos :", langues[indCos], languesTextes[i])
+    #print("DE :", langues[indDE], languesTextes[i])
 
     if langues[indCos] == languesTextes[i] :
         testsCos.append(True)
@@ -74,16 +74,21 @@ for texte in textes :
         testsDE.append(False)
 
     i+=1
-    print()
+    #print()
 
-bonRes = 0
-for res in testsCos :
-    if res == True :
-        bonRes += 1
-print("Cos :", bonRes, "/", len(testsCos))
 
-bonRes = 0
-for res in testsDE :
-    if res == True :
-        bonRes +=1
-print("DE :", bonRes, "/", len(testsDE))
+def evaluationCosinus(liste):
+    bonRes = 0
+    for res in liste :
+        if res == True :
+            bonRes += 1
+    return bonRes
+print("Cos :", evaluationCosinus(testsCos), "/", len(testsCos))
+
+def evaluationDE(liste):
+    bonRes = 0
+    for res in testsDE :
+        if res == True :
+            bonRes +=1
+    return bonRes
+print("DE :", evaluationDE(testsDE), "/", len(testsDE))
