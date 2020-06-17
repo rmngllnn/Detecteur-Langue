@@ -42,7 +42,7 @@ def createDico(texte) :
     dict = {} #on crée un dictionnaire vide
     for gram in list_ngrams :
         if gram not in dict:
-            dict[gram] = 0 #il crée la clé qui lui donne une valeur
+            dict[gram] = 0 #la clé ne devrait-elle pas être initialisé à 1 ?!
         dict[gram] += 1
     return dict
 

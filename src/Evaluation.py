@@ -14,6 +14,7 @@ def recuperationTextes(langue) :
 
 langues = ["allemand", "anglais", "espagnol", "francais", "portugais"]
 textes = []
+
 for langue in langues :
     textes.extend(recuperationTextes(langue))
 
@@ -29,9 +30,12 @@ languesTextes.extend(["anglais"]*9)
 languesTextes.extend(["espagnol"]*9)
 languesTextes.extend(["francais"]*9)
 languesTextes.extend(["portugais"]*9)
-i = 0
+
+
 testsCos = []
 testsDE = []
+i = 0
+
 for texte in textes :
     texte = numb_less(texte)
     dicoTrain = createDico(texte)
