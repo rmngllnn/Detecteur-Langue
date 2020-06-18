@@ -23,7 +23,7 @@ from Evaluation import *
 fig = plt.figure()
 
 x = ["Cosinus", "Distance\nEuclidienne"]
-height = [evaluationCosinus(testsCos), evaluationDE(testsDE)]
+height = [evaluation(testsCos), evaluation(testsDE)]
 width = 0.5
 
 plt.bar(x, height, width, color='lightblue') #couleur cf. fichier CouleurMatplotlib.png

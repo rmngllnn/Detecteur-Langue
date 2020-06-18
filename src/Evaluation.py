@@ -3,21 +3,12 @@ from pathlib import Path
 from Fonctions import *
 from Tests import *
 
-def recuperationTextes(langue) :
-    path = os.getcwd()
-    directory = os.path.abspath(os.path.join(path, os.pardir)) + '/CorpusTest/' + langue
-    txt = []
-    for fileName in os.listdir(directory) :
-        txt.append(readFile(directory + "/" + fileName))
-    return txt
-
 
 langues = ["allemand", "anglais", "espagnol", "francais", "portugais"]
 textes = []
 
 for langue in langues :
     textes.extend(recuperationTextes(langue))
-
 
 # 0 <= i <= 8 : allemand
 # 9 <= i <= 17 : Anglais
@@ -32,33 +23,19 @@ languesTextes.extend(["francais"]*9)
 languesTextes.extend(["portugais"]*9)
 
 
-testsCos = []
-testsDE = []
+testsCos, testsDE = [], []
 i = 0
 
 for texte in textes :
     texte = numb_less(texte)
     dicoTrain = createDico(texte)
+    liste1, liste2 = [], []
 
-    simListCos, simListDE = [], []
-    simAllCos, simAllDE = similarite(dicoTrain, "Allemand")
-    simListCos.append(simAllCos)
-    simListDE.append(simAllDE)
-    simAngCos, simAngDE = similarite(dicoTrain, "Anglais")
-    simListCos.append(simAngCos)
-    simListDE.append(simAngDE)
-    simEsCos, simEsDE = similarite(dicoTrain, "Espagnol")
-    simListCos.append(simEsCos)
-    simListDE.append(simEsDE)
-    simFrCos, simFrDE = similarite(dicoTrain, "Francais")
-    simListCos.append(simFrCos)
-    simListDE.append(simFrDE)
-    simPtCos, simPtDE = similarite(dicoTrain, "Portugais")
-    simListCos.append(simPtCos)
-    simListDE.append(simPtDE)
+    for langue in langues :
+        calculLangue(liste1, liste2, langue, dicoTrain)
 
-    indCos = maxSim(simListCos)
-    indDE = maxSim(simListDE)
+    indCos = maxSim(liste1)
+    indDE = minSim(liste2)
 
     #print("Cos :", langues[indCos], languesTextes[i])
     #print("DE :", langues[indDE], languesTextes[i])
@@ -77,18 +54,12 @@ for texte in textes :
     #print()
 
 
-def evaluationCosinus(liste):
+def evaluation(liste):
     bonRes = 0
     for res in liste :
         if res == True :
             bonRes += 1
     return bonRes
-print("Cos :", evaluationCosinus(testsCos), "/", len(testsCos))
 
-def evaluationDE(liste):
-    bonRes = 0
-    for res in testsDE :
-        if res == True :
-            bonRes +=1
-    return bonRes
-print("DE :", evaluationDE(testsDE), "/", len(testsDE))
+print("Cos :", evaluation(testsCos), "/", len(testsCos))
+print("DE :", evaluation(testsDE), "/", len(testsDE))

@@ -19,14 +19,6 @@ Fichier permettant de vectoriser les corpus tests
 NE PAS LANCER, LES VARIABLES SONT DEJA SAUVEGARDEES
 """
 
-def recuperationTextes(langue) :
-    path = os.getcwd()
-    directory = os.path.abspath(os.path.join(path, os.pardir)) + '/Corpus/' + langue
-    txt = ""
-    for fileName in os.listdir(directory) :
-        txt += readFile(directory + "/" + fileName)
-    return txt
-
 def recuperationDico(langue) :
     text = recuperationTextes(langue)
     dico = createDico(text)

@@ -1,12 +1,13 @@
 from Fonctions import *
 import sys
+import os
 
 '''
 A LANCER AVEC UN NOM DE FICHIER EN ARGUMENT
 '''
 
 def similarite(dicoTrain, language) :
-    fileName = 'variables/' + language + 'Dico.pkl'
+    fileName = os.getcwd() + '/src/variables/' + language + 'Dico.pkl'
     data = open(fileName, 'rb')
     dicoCorpus = pickle.load(data)
     data.close()
@@ -22,7 +23,7 @@ def maxSim(liste) :
 
 
 #Test car on doit chercher la distance euclidienne la plus petite
-#Après qqs tests, ça ne change rien a priori 
+#Après qqs tests, ça ne change rien a priori
 #à voir si ce que j'ai fait est correct aussi mais je crois pas
 def minSim(liste) :
     indMax = max(liste)
@@ -32,40 +33,27 @@ def minSim(liste) :
     return indMax
 
 
+def calculLangue(liste1, liste2, langue, dicoTrain) :
+    sim1, sim2 = similarite(dicoTrain, langue)
+    liste1.append(sim1)
+    liste2.append(sim2)
+    print(langue + "cos ->", sim1, "DE ->", sim2)
+
+langues = ["allemand", "anglais", "espagnol", "francais", "portugais"]
 
 if len(sys.argv) > 1 :
     txt = readFile(sys.argv[1])
     txt = numb_less(txt)
     dicoTrain = createDico(txt)
+    liste1, liste2 = [], []
 
-#création des listes de similarités pour étiqueter la langue du texte
-    simListCos, simListDE = [], []
-    simAllCos, simAllDE = similarite(dicoTrain, "Allemand")
-    simListCos.append(simAllCos)
-    simListDE.append(simAllDE)
-    simAngCos, simAngDE = similarite(dicoTrain, "Anglais")
-    simListCos.append(simAngCos)
-    simListDE.append(simAngDE)
-    simEsCos, simEsDE = similarite(dicoTrain, "Espagnol")
-    simListCos.append(simEsCos)
-    simListDE.append(simEsDE)
-    simFrCos, simFrDE = similarite(dicoTrain, "Francais")
-    simListCos.append(simFrCos)
-    simListDE.append(simFrDE)
-    simPtCos, simPtDE = similarite(dicoTrain, "Portugais")
-    simListCos.append(simPtCos)
-    simListDE.append(simPtDE)
+    for langue in langues :
+        calculLangue(liste1, liste2, langue, dicoTrain)
 
-    print("Allemand : cos ->", simAllCos, "DE ->", simAllDE)
-    print("Anglais : cos ->", simAngCos, "DE ->", simAngDE)
-    print("Espagnol : cos ->", simEsCos, "DE ->", simEsDE)
-    print("Francais : cos ->", simFrCos, "DE ->", simFrDE)
-    print("Portugais : cos ->", simPtCos, "DE ->", simPtDE)
 
-    indCos = maxSim(simListCos)
-    indDE = minSim(simListDE)
+    indCos = maxSim(liste1)
+    indDE = minSim(liste2)
 
-    langages = ["Allemand", "Anglais", "Espagnol", "Francais", "Portugais"]
     print()
-    print("D'après le cosinus, le texte semble être en", langages[indCos])
-    print("D'après la distance euclidienne, le texte semble être en", langages[indDE])
+    print("D'après le cosinus, le texte semble être en", langues[indCos])
+    print("D'après la distance euclidienne, le texte semble être en", langues[indDE])

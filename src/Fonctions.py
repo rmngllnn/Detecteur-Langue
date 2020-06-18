@@ -11,6 +11,7 @@ from nltk import ngrams
 import pickle
 import re
 import math
+import os
 
 """
 Questionnement : est-ce qu'on ferait pas une fonction nettoyage (comme en JAVA)
@@ -18,6 +19,15 @@ pour enlever tout ce qui nous gêne (ponctuation, signes API), et qu'on peut
 modifier selon les petits trucs qu'on rencontre qui nous embêtent
 """
 
+def recuperationTextes(langue) :
+    path = os.getcwd()
+    #directory = os.path.abspath(os.path.join(path, os.pardir)) + '/ProjetTal/CorpusTest/' + langue
+    directory = os.getcwd() + '/CorpusTest/' + langue
+    txt = []
+    print(os.listdir(directory))
+    for fileName in os.listdir(directory) :
+        txt.append(readFile(directory + "/" + fileName))
+    return txt
 
 #Fonction qui enlève la ponctuation. Fonctionne
 def punct_less(text):
