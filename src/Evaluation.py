@@ -35,9 +35,11 @@ languesTextes.extend(["portugais"]*9)
 
 
 testsCos, testsDE = [], []
+tailleTextes = []
 i = 0
 
 for texte in textes :
+    tailleTextes.append(len(texte))
     texte = numb_less(texte)
     dicoTrain = createDico(texte, n)
     liste1, liste2 = [], []
@@ -71,7 +73,51 @@ def evaluation(liste):
             bonRes += 1
     return bonRes
 
+def pourcentageParTaille(tailleTextes, testsCos) :
+    taillesUniq = []
+    nbTextesParTaille = []
+    nbCorrects = []
+
+    for i in range (0, len(tailleTextes)) :
+        if tailleTextes[i] not in taillesUniq :
+            taillesUniq.append(tailleTextes[i])
+            nbTextesParTaille.append(1)
+            if testsCos[i] :
+                nbCorrects.append(1)
+            else :
+                nbCorrects.append(0)
+        else :
+            index = taillesUniq.index(tailleTextes[i])
+            nbTextesParTaille[index] += 1
+            if testsCos[i] :
+                nbCorrects[index] += 1
+
+    pourcentages = []
+    for i in range (0, len(nbTextesParTaille)) :
+        pourcentages.append(nbCorrects[i]*100/nbTextesParTaille[i])
+
+    return taillesUniq, pourcentages
+
+    '''
+    # Utilisation dico :
+    # tailleDuTexte : [nombreDeFichiersDeCetteTailleCorrectementIdentifiés, nombreDeFichiersDeCetteTaille]
+    taillePourcentage = {}
+    for i in range (0, len(tailleTextes)) :
+
+        if tailleTextes[i] not in taillePourcentage :
+            if testsCos[i] :
+                taillePourcentage[tailleTextes[i]] = [1, 1]
+            else :
+                taillePourcentage[tailleTextes[i]] = [0, 1]
+        else :
+            taillePourcentage[tailleTextes[i]][1] += 1
+            if testsCos[i] :
+                taillePourcentage[tailleTextes[i]][0] += 1
+    pourcentages = []
+    for key in taillePourcentage.keys() :
+        pourcentages.append(taillePourcentage[key][0]*100 / taillePourcentage[key][1])
+    return taillePourcentage.keys(), pourcentages
 '''
+
 print("Cos :", evaluation(testsCos)*100/len(testsCos), "/", 100)
 print("DE :", evaluation(testsDE)*100/len(testsDE), "/", 100)
-'''

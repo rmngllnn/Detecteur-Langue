@@ -2,13 +2,14 @@ from Fonctions import numb_less
 from Fonctions import createDico
 from Fonctions import similariteCosinus
 from Fonctions import similariteDistanceEuclidienne
+from Fonctions import readFile
 
-import sys
+from sys import argv
 import os
 import pickle
 
 '''
-A LANCER AVEC UN NOM DE FICHIER EN ARGUMENT
+A LANCER AVEC UN N ET UN NOM DE FICHIER EN ARGUMENT
 '''
 
 def similarite(dicoTrain, language, n) :
@@ -46,10 +47,16 @@ def calculLangue(liste1, liste2, langue, dicoTrain, n) :
 
 langues = ["allemand", "anglais", "espagnol", "francais", "portugais"]
 
-
-if len(sys.argv) > 2 :
+print()
+if len(argv) > 2 :
+    txt = ""
     n = int(argv[1])
-    txt = argv[2]
+    if os.path.isfile(argv[2]) :
+        txt = readFile(argv[2])
+    else :
+        words = argv[2:]
+        for word in words :
+            txt += word + " "
     txt = numb_less(txt)
     dicoTrain = createDico(txt, n)
     liste1, liste2 = [], []

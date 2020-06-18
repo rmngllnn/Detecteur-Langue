@@ -23,15 +23,21 @@ from Evaluation import *
 fig = plt.figure()
 
 x = ["Cosinus", "Distance\nEuclidienne"]
-height = [evaluation(testsCos)*100/len(testsCos), evaluation(testsDE)*100/len(testsDE)]
+y = [evaluation(testsCos)*100/len(testsCos), evaluation(testsDE)*100/len(testsDE)]
 width = 0.5
 
 
-plt.bar(x, height, width, color='lightblue') #couleur cf. fichier CouleurMatplotlib.png
-plt.title('Evaluation de performance entre\n la similarité de cosinus et la distance euclidienne')
+plt.bar(x, y, width, color='lightblue') #couleur cf. fichier CouleurMatplotlib.png
+plt.title('Evaluation de performance entre\nla similarité de cosinus et la distance euclidienne')
 plt.ylim(0,100)
 plt.show()
 
+
+tailles, pourcentages = pourcentageParTaille(tailleTextes, testsCos)
+print(tailles)
+print(pourcentages)
+plt.plot(tailles, pourcentages, 'o')
+plt.show()
 
 '''
 #Pour comparer cosinus/distance euclidienne pour chaque langue
