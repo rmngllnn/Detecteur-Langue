@@ -74,6 +74,7 @@ def evaluation(liste):
     return bonRes
 
 def pourcentageParTaille(tailleTextes, testsCos) :
+    print(tailleTextes)
     taillesUniq = []
     nbTextesParTaille = []
     nbCorrects = []
