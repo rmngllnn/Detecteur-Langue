@@ -7,7 +7,7 @@ A LANCER AVEC UN NOM DE FICHIER EN ARGUMENT
 '''
 
 def similarite(dicoTrain, language) :
-    fileName = os.getcwd() + '/src/variables/' + language + 'Dico.pkl'
+    fileName = os.getcwd() + '/variables/' + language + 'DicoTrigramme.pkl'
     data = open(fileName, 'rb')
     dicoCorpus = pickle.load(data)
     data.close()

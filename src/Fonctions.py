@@ -7,7 +7,7 @@ Created on Sat May  9 10:19:26 2020
 """
 
 import string as str
-from nltk import ngrams
+from nltk.util import ngrams
 import pickle
 import re
 import math
@@ -19,12 +19,10 @@ pour enlever tout ce qui nous gêne (ponctuation, signes API), et qu'on peut
 modifier selon les petits trucs qu'on rencontre qui nous embêtent
 """
 
-def recuperationTextes(langue) :
+def recuperationTextes(langue, isTrain=True) :
     path = os.getcwd()
-    #directory = os.path.abspath(os.path.join(path, os.pardir)) + '/ProjetTal/CorpusTest/' + langue
-    directory = os.getcwd() + '/CorpusTest/' + langue
+    directory = os.path.abspath(os.path.join(path, os.pardir)) + '/CorpusTest/' + langue
     txt = []
-    print(os.listdir(directory))
     for fileName in os.listdir(directory) :
         txt.append(readFile(directory + "/" + fileName))
     return txt
@@ -41,20 +39,16 @@ def numb_less(texte):
     return re.sub("[0-9]+", "", texte)
 
 
-#Génère une liste de ngramme
-def separate(texte, n) :
-    txt_ngrams = list(ngrams(texte, n))
-    return txt_ngrams
-
 #crée un dictionnaire
 def createDico(texte) :
-    list_ngrams = separate(texte, 2)
-    dict = {} #on crée un dictionnaire vide
+    list_ngrams = list(ngrams(texte, 3))
+    dico = {} #on crée un dictionnaire vide
+    i=0
     for gram in list_ngrams :
-        if gram not in dict:
-            dict[gram] = 0 #la clé ne devrait-elle pas être initialisé à 1 ?!
-        dict[gram] += 1
-    return dict
+        if gram not in dico:
+            dico[gram] = 0 #la clé ne devrait-elle pas être initialisé à 1 ?!
+        dico[gram] += 1
+    return dico
 
 #calcul des similarités par la distance euclidienne
 def similariteDistanceEuclidienne(dicoCorpus, dicoTrain) :
@@ -72,6 +66,7 @@ def similariteCosinus(dicoCorpus, dicoTrain) :
         normTrain += dicoTrain[elmt]**2
     norm = math.sqrt(normCorpus)*math.sqrt(normTrain)
     return prodScal / norm
+
 
 # On ouvre un fichier
 def readFile(fileName) :

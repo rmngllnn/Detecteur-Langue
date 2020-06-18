@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 
-@authors: Romane GALLIENNE, Cindy PEREIRA, Nadège DEMANÉE
+@authors: Romane GALLIENNE, Cindy PEREIRA
 """
 
 from Fonctions import *
@@ -19,16 +19,25 @@ Fichier permettant de vectoriser les corpus tests
 NE PAS LANCER, LES VARIABLES SONT DEJA SAUVEGARDEES
 """
 
+def recuperationTextesCorpus(langue) :
+    path = os.getcwd()
+    directory = os.path.abspath(os.path.join(path, os.pardir)) + '/Corpus/' + langue
+    txt = ""
+    for fileName in os.listdir(directory) :
+        txt += readFile(directory + "/" + fileName)
+    return txt
+
 def recuperationDico(langue) :
-    text = recuperationTextes(langue)
+    text = recuperationTextesCorpus(langue)
     dico = createDico(text)
-    f = open("variables/" + langue + "Dico" + ".pkl", 'wb')
+    fileName = os.getcwd() + '/variables/' + langue + 'DicoTrigramme.pkl'
+    f = open(fileName, 'wb')
     pickle.dump(dico, f)
     f.close()
 
 
-recuperationDico("Anglais")
-recuperationDico("Allemand")
-recuperationDico("Espagnol")
-recuperationDico("Francais")
-recuperationDico("Portugais")
+recuperationDico("anglais")
+recuperationDico("allemand")
+recuperationDico("espagnol")
+recuperationDico("francais")
+recuperationDico("portugais")

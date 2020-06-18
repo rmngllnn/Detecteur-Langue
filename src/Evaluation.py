@@ -10,6 +10,7 @@ textes = []
 for langue in langues :
     textes.extend(recuperationTextes(langue))
 
+
 # 0 <= i <= 8 : allemand
 # 9 <= i <= 17 : Anglais
 # 18 <= i <= 26 : Espagnol
@@ -61,5 +62,5 @@ def evaluation(liste):
             bonRes += 1
     return bonRes
 
-print("Cos :", evaluation(testsCos), "/", len(testsCos))
-print("DE :", evaluation(testsDE), "/", len(testsDE))
+print("Cos :", evaluation(testsCos)*100/len(testsCos), "/", 100)
+print("DE :", evaluation(testsDE)*100/len(testsDE), "/", 100)
