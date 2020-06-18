@@ -5,14 +5,12 @@
 @authors: Romane GALLIENNE, Cindy PEREIRA
 """
 
-from Fonctions import *
+from Fonctions import createDico
+from Fonctions import readFile
 import os
-from pathlib import Path
-import numpy as np
+#from pathlib import Path
 import pickle
-import bz2
-import _pickle as cPickle
-
+from sys import argv
 
 """
 Fichier permettant de vectoriser les corpus tests
@@ -27,17 +25,21 @@ def recuperationTextesCorpus(langue) :
         txt += readFile(directory + "/" + fileName)
     return txt
 
-def recuperationDico(langue) :
+def recuperationDico(langue, n) :
     text = recuperationTextesCorpus(langue)
-    dico = createDico(text)
-    fileName = os.getcwd() + '/variables/' + langue + 'DicoTrigramme.pkl'
+    dico = createDico(text, n)
+    fileName = os.getcwd() + '/variables/' + langue + 'Dico' + str(n) + '.pkl'
     f = open(fileName, 'wb')
     pickle.dump(dico, f)
     f.close()
 
 
-recuperationDico("anglais")
-recuperationDico("allemand")
-recuperationDico("espagnol")
-recuperationDico("francais")
-recuperationDico("portugais")
+n = 0
+if len(argv) > 1 :
+    n = int(argv[1])
+    
+recuperationDico("anglais", n)
+recuperationDico("allemand", n)
+recuperationDico("espagnol", n)
+recuperationDico("francais", n)
+recuperationDico("portugais", n)

@@ -1,8 +1,18 @@
 import os
 from pathlib import Path
-from Fonctions import *
-from Tests import *
+from Fonctions import recuperationTextes
+from Fonctions import createDico
+from Fonctions import numb_less
 
+from Tests import calculLangue
+from Tests import maxSim
+from Tests import minSim
+
+from sys import argv
+
+#n = 0
+if len(argv) > 1 :
+    n = int(argv[1])
 
 langues = ["allemand", "anglais", "espagnol", "francais", "portugais"]
 textes = []
@@ -29,11 +39,11 @@ i = 0
 
 for texte in textes :
     texte = numb_less(texte)
-    dicoTrain = createDico(texte)
+    dicoTrain = createDico(texte, n)
     liste1, liste2 = [], []
 
     for langue in langues :
-        calculLangue(liste1, liste2, langue, dicoTrain)
+        calculLangue(liste1, liste2, langue, dicoTrain, n)
 
     indCos = maxSim(liste1)
     indDE = minSim(liste2)
@@ -54,7 +64,6 @@ for texte in textes :
     i+=1
     #print()
 
-
 def evaluation(liste):
     bonRes = 0
     for res in liste :
@@ -62,5 +71,7 @@ def evaluation(liste):
             bonRes += 1
     return bonRes
 
+'''
 print("Cos :", evaluation(testsCos)*100/len(testsCos), "/", 100)
 print("DE :", evaluation(testsDE)*100/len(testsDE), "/", 100)
+'''

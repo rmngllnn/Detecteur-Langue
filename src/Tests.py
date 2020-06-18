@@ -1,13 +1,18 @@
-from Fonctions import *
+from Fonctions import numb_less
+from Fonctions import createDico
+from Fonctions import similariteCosinus
+from Fonctions import similariteDistanceEuclidienne
+
 import sys
 import os
+import pickle
 
 '''
 A LANCER AVEC UN NOM DE FICHIER EN ARGUMENT
 '''
 
-def similarite(dicoTrain, language) :
-    fileName = os.getcwd() + '/variables/' + language + 'DicoTrigramme.pkl'
+def similarite(dicoTrain, language, n) :
+    fileName = os.getcwd() + '/variables/' + language + 'Dico' + str(n) + '.pkl'
     data = open(fileName, 'rb')
     dicoCorpus = pickle.load(data)
     data.close()
@@ -26,29 +31,31 @@ def maxSim(liste) :
 #Après qqs tests, ça ne change rien a priori
 #à voir si ce que j'ai fait est correct aussi mais je crois pas
 def minSim(liste) :
-    indMax = max(liste)
+    indMin = 0
     for i in range (0, len(liste)) :
-        if liste[i] < indMax :
-            indMax = i
-    return indMax
+        if liste[i] < liste[indMin] :
+            indMin = i
+    return indMin
 
 
-def calculLangue(liste1, liste2, langue, dicoTrain) :
-    sim1, sim2 = similarite(dicoTrain, langue)
+def calculLangue(liste1, liste2, langue, dicoTrain, n) :
+    sim1, sim2 = similarite(dicoTrain, langue, n)
     liste1.append(sim1)
     liste2.append(sim2)
-    print(langue + "cos ->", sim1, "DE ->", sim2)
+    print(langue, "cos ->", sim1, "DE ->", sim2)
 
 langues = ["allemand", "anglais", "espagnol", "francais", "portugais"]
 
-if len(sys.argv) > 1 :
-    txt = readFile(sys.argv[1])
+
+if len(sys.argv) > 2 :
+    n = int(argv[1])
+    txt = argv[2]
     txt = numb_less(txt)
-    dicoTrain = createDico(txt)
+    dicoTrain = createDico(txt, n)
     liste1, liste2 = [], []
 
     for langue in langues :
-        calculLangue(liste1, liste2, langue, dicoTrain)
+        calculLangue(liste1, liste2, langue, dicoTrain, n)
 
 
     indCos = maxSim(liste1)

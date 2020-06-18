@@ -26,12 +26,11 @@ x = ["Cosinus", "Distance\nEuclidienne"]
 height = [evaluation(testsCos)*100/len(testsCos), evaluation(testsDE)*100/len(testsDE)]
 width = 0.5
 
+
 plt.bar(x, height, width, color='lightblue') #couleur cf. fichier CouleurMatplotlib.png
 plt.title('Evaluation de performance entre\n la similarité de cosinus et la distance euclidienne')
 plt.ylim(0,100)
 plt.show()
-
-
 
 
 '''

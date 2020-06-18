@@ -40,8 +40,8 @@ def numb_less(texte):
 
 
 #crée un dictionnaire
-def createDico(texte) :
-    list_ngrams = list(ngrams(texte, 3))
+def createDico(texte, n) :
+    list_ngrams = list(ngrams(texte, n))
     dico = {} #on crée un dictionnaire vide
     i=0
     for gram in list_ngrams :
