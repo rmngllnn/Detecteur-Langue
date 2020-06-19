@@ -3,7 +3,7 @@
 """
 Created on Sat May  9 10:19:26 2020
 
-@authors: Romane GALLIENNE, Cindy PEREIRA, Nadège DEMANÉE
+@authors: Romane GALLIENNE, Cindy PEREIRA
 """
 
 import string as str
@@ -13,12 +13,7 @@ import re
 import math
 import os
 
-"""
-Questionnement : est-ce qu'on ferait pas une fonction nettoyage (comme en JAVA)
-pour enlever tout ce qui nous gêne (ponctuation, signes API), et qu'on peut
-modifier selon les petits trucs qu'on rencontre qui nous embêtent
-"""
-
+# Permet d'extraire le texte d'un fichier
 def recuperationTextes(langue, isTrain=True) :
     path = os.getcwd()
     directory = os.path.abspath(os.path.join(path, os.pardir)) + '/CorpusTest/' + langue
@@ -27,14 +22,14 @@ def recuperationTextes(langue, isTrain=True) :
         txt.append(readFile(directory + "/" + fileName))
     return txt
 
-#Fonction qui enlève la ponctuation. Fonctionne
+# Fonction qui enlève la ponctuation
 def punct_less(text):
     for punct in str.punctuation:
         text = text.replace(punct, "")
     return text
 
 
-#Fonction qui enlève les nombres (utile ?). Fonctionne
+# Fonction qui enlève les nombres
 def numb_less(texte):
     return re.sub("[0-9]+", "", texte)
 
@@ -46,7 +41,7 @@ def createDico(texte, n) :
     i=0
     for gram in list_ngrams :
         if gram not in dico:
-            dico[gram] = 0 #la clé ne devrait-elle pas être initialisé à 1 ?!
+            dico[gram] = 0
         dico[gram] += 1
     return dico
 

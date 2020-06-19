@@ -12,6 +12,7 @@ import pickle
 A LANCER AVEC UN N ET UN NOM DE FICHIER EN ARGUMENT
 '''
 
+# Renvoie la similarité cosinus et la similarité DE entre le dictionnaire d'un texte et le dictionnaire d'une langue
 def similarite(dicoTrain, language, n) :
     fileName = os.getcwd() + '/variables/' + language + 'Dico' + str(n) + '.pkl'
     data = open(fileName, 'rb')
@@ -28,9 +29,7 @@ def maxSim(liste) :
     return indMax
 
 
-#Test car on doit chercher la distance euclidienne la plus petite
-#Après qqs tests, ça ne change rien a priori
-#à voir si ce que j'ai fait est correct aussi mais je crois pas
+#fonction pour chercher la distance euclidienne la plus petite
 def minSim(liste) :
     indMin = 0
     for i in range (0, len(liste)) :
@@ -39,6 +38,7 @@ def minSim(liste) :
     return indMin
 
 
+# Calcule et affiche le cosinus et la distance euclidienne entre le dictionnaire d'un texte et celui d'une langue
 def calculLangue(liste1, liste2, langue, dicoTrain, n) :
     sim1, sim2 = similarite(dicoTrain, langue, n)
     liste1.append(sim1)
@@ -48,9 +48,13 @@ def calculLangue(liste1, liste2, langue, dicoTrain, n) :
 langues = ["allemand", "anglais", "espagnol", "francais", "portugais"]
 
 print()
+# Si l'utilisateur a bien entré deux arguments :
+# - un n pour les n-grammes
+# - un nom de fichier ou un texte directement entré
 if len(argv) > 2 :
     txt = ""
     n = int(argv[1])
+    # Alors, on récupère le texte (du fichier ou de l'argument)
     if os.path.isfile(argv[2]) :
         txt = readFile(argv[2])
     else :
@@ -58,13 +62,16 @@ if len(argv) > 2 :
         for word in words :
             txt += word + " "
     txt = numb_less(txt)
+    # On en crée le dictionnaire en utilisant des n-grammes
     dicoTrain = createDico(txt, n)
     liste1, liste2 = [], []
 
+    # On calcule la similarité pour chaque langue
     for langue in langues :
         calculLangue(liste1, liste2, langue, dicoTrain, n)
 
 
+    # On récupère la langue la plus proche et on l'affiche
     indCos = maxSim(liste1)
     indDE = minSim(liste2)
 

@@ -10,13 +10,18 @@ from Tests import minSim
 
 from sys import argv
 
-#n = 0
+n = 0
+# Si l'utilisateur a bien entré un n, on le récupère
 if len(argv) > 1 :
     n = int(argv[1])
+else :
+    # Sinon, on le fixe à 2 par défaut
+    n = 2
 
 langues = ["allemand", "anglais", "espagnol", "francais", "portugais"]
 textes = []
 
+# On récupère tous les textes de chaque langue
 for langue in langues :
     textes.extend(recuperationTextes(langue))
 
@@ -38,6 +43,7 @@ testsCos, testsDE = [], []
 tailleTextes = []
 i = 0
 
+# Pour chaque texte du corpus, on trouve la langue la plus proche
 for texte in textes :
     tailleTextes.append(len(texte))
     texte = numb_less(texte)
@@ -50,8 +56,7 @@ for texte in textes :
     indCos = maxSim(liste1)
     indDE = minSim(liste2)
 
-    #print("Cos :", langues[indCos], languesTextes[i])
-    #print("DE :", langues[indDE], languesTextes[i])
+    # Si la langue trouvée est correcte, alors on ajoute un True, sinon un False
     if langues[indCos] == languesTextes[i] :
         testsCos.append(True)
     elif langues[indCos] != languesTextes[i]:
@@ -65,6 +70,8 @@ for texte in textes :
     i+=1
     #print()
 
+
+# Renvoie le nombre de bons résultats
 def evaluation(liste):
     bonRes = 0
     for res in liste :
@@ -72,8 +79,11 @@ def evaluation(liste):
             bonRes += 1
     return bonRes
 
+
+# Renvoie deux listes :
+# - differentes tailles de textes rencontrees
+# - pourcentages de textes bien étiquetés par taille
 def pourcentageParTaille(tailleTextes, testsCos) :
-    print(tailleTextes)
     taillesUniq = []
     nbTextesParTaille = []
     nbCorrects = []
@@ -98,26 +108,7 @@ def pourcentageParTaille(tailleTextes, testsCos) :
 
     return taillesUniq, pourcentages
 
-    '''
-    # Utilisation dico :
-    # tailleDuTexte : [nombreDeFichiersDeCetteTailleCorrectementIdentifiés, nombreDeFichiersDeCetteTaille]
-    taillePourcentage = {}
-    for i in range (0, len(tailleTextes)) :
 
-        if tailleTextes[i] not in taillePourcentage :
-            if testsCos[i] :
-                taillePourcentage[tailleTextes[i]] = [1, 1]
-            else :
-                taillePourcentage[tailleTextes[i]] = [0, 1]
-        else :
-            taillePourcentage[tailleTextes[i]][1] += 1
-            if testsCos[i] :
-                taillePourcentage[tailleTextes[i]][0] += 1
-    pourcentages = []
-    for key in taillePourcentage.keys() :
-        pourcentages.append(taillePourcentage[key][0]*100 / taillePourcentage[key][1])
-    return taillePourcentage.keys(), pourcentages
-'''
 
 print("Cos :", evaluation(testsCos)*100/len(testsCos), "/", 100)
 print("DE :", evaluation(testsDE)*100/len(testsDE), "/", 100)

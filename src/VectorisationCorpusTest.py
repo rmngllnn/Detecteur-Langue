@@ -17,6 +17,7 @@ Fichier permettant de vectoriser les corpus tests
 NE PAS LANCER, LES VARIABLES SONT DEJA SAUVEGARDEES
 """
 
+# Récupère chaque texte de toutes les langues
 def recuperationTextesCorpus(langue) :
     path = os.getcwd()
     directory = os.path.abspath(os.path.join(path, os.pardir)) + '/Corpus/' + langue
@@ -25,6 +26,7 @@ def recuperationTextesCorpus(langue) :
         txt += readFile(directory + "/" + fileName)
     return txt
 
+# Crée le dictionnaire n-gramme de chaque langue et le sérialise
 def recuperationDico(langue, n) :
     text = recuperationTextesCorpus(langue)
     dico = createDico(text, n)
@@ -34,10 +36,11 @@ def recuperationDico(langue, n) :
     f.close()
 
 
-n = 0
+n = 2
+# Si l'utilisateur a entré un n, on le récupère, sinon on le fixe à 2
 if len(argv) > 1 :
     n = int(argv[1])
-    
+
 recuperationDico("anglais", n)
 recuperationDico("allemand", n)
 recuperationDico("espagnol", n)
