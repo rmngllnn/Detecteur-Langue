@@ -52,7 +52,6 @@ for texte in textes :
 
     #print("Cos :", langues[indCos], languesTextes[i])
     #print("DE :", langues[indDE], languesTextes[i])
-
     if langues[indCos] == languesTextes[i] :
         testsCos.append(True)
     elif langues[indCos] != languesTextes[i]:

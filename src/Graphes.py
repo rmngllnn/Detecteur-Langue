@@ -28,15 +28,31 @@ width = 0.5
 
 
 plt.bar(x, y, width, color='lightblue') #couleur cf. fichier CouleurMatplotlib.png
-plt.title('Evaluation de performance entre\nla similarité de cosinus et la distance euclidienne')
+plt.title('Évaluation de performance entre\nla similarité de cosinus et la distance euclidienne')
+plt.ylabel('Taux de réussite')
 plt.ylim(0,100)
+for x1,y1 in zip(x,y) :
+    plt.annotate(y1,
+                (x1,y1),
+                textcoords="offset points", # how to position the text
+                xytext=(0,-20), # distance from text to points (x,y)
+                ha='center')
 plt.show()
 
 
 tailles, pourcentages = pourcentageParTaille(tailleTextes, testsCos)
-print(tailles)
-print(pourcentages)
 plt.plot(tailles, pourcentages, 'o')
+plt.ylim(0,110)
+for x2,y2 in zip(tailles, pourcentages) :
+    plt.annotate(y2, # this is the text
+                 (x2,y2), # this is the point to label
+                 textcoords="offset points", # how to position the text
+                 xytext=(0,10), # distance from text to points (x,y)
+                 ha='center')
+
+plt.title('Pourcentage de réussite en fonction\ndu nombre de caractères du texte')
+plt.xlabel('Taille du texte en nombre de caractères')
+plt.ylabel('Taux de réussite')
 plt.show()
 
 '''
