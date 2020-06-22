@@ -13,9 +13,8 @@ ordre d'affichage dans le terminal
 
 
 import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
-from Evaluation import *
 
+from Evaluation import *
 
 
 #Pour comparer cosinus/distance euclidienne finale (pour l'évaluation)
@@ -48,7 +47,7 @@ for x2,y2 in zip(tailles, pourcentages) :
     plt.annotate(y2,
                  (x2,y2),
                  textcoords="offset points",
-                 xytext=(0,10), 
+                 xytext=(0,10),
                  ha='center')
 
 plt.title('Pourcentage de réussite en fonction\ndu nombre de caractères du texte')

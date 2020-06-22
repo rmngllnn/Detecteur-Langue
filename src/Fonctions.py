@@ -8,13 +8,12 @@ Created on Sat May  9 10:19:26 2020
 
 import string as str
 from nltk.util import ngrams
-import pickle
 import re
 import math
 import os
 
 # Permet d'extraire le texte d'un fichier
-def recuperationTextes(langue, isTrain=True) :
+def recuperationTextes(langue) :
     path = os.getcwd()
     directory = os.path.abspath(os.path.join(path, os.pardir)) + '/CorpusTest/' + langue
     txt = []
@@ -38,7 +37,6 @@ def numb_less(texte):
 def createDico(texte, n) :
     list_ngrams = list(ngrams(texte, n))
     dico = {} #on crée un dictionnaire vide
-    i=0
     for gram in list_ngrams :
         if gram not in dico:
             dico[gram] = 0

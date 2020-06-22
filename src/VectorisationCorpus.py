@@ -8,7 +8,6 @@
 from Fonctions import createDico
 from Fonctions import readFile
 import os
-#from pathlib import Path
 import pickle
 from sys import argv
 
@@ -25,6 +24,7 @@ def recuperationTextesCorpus(langue) :
     for fileName in os.listdir(directory) :
         txt += readFile(directory + "/" + fileName)
     return txt
+
 
 # Crée le dictionnaire n-gramme de chaque langue et le sérialise
 def recuperationDico(langue, n) :

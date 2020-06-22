@@ -1,14 +1,13 @@
-import os
-from pathlib import Path
+from sys import argv
+
 from Fonctions import recuperationTextes
 from Fonctions import createDico
 from Fonctions import numb_less
 
-from Tests import calculLangue
-from Tests import maxSim
-from Tests import minSim
+from Detection import calculLangue
+from Detection import maxSim
+from Detection import minSim
 
-from sys import argv
 
 n = 0
 # Si l'utilisateur a bien entré un n, on le récupère
@@ -55,6 +54,7 @@ for texte in textes :
 
     indCos = maxSim(liste1)
     indDE = minSim(liste2)
+    #indDE = maxSim(liste2)
 
     # Si la langue trouvée est correcte, alors on ajoute un True, sinon un False
     if langues[indCos] == languesTextes[i] :
