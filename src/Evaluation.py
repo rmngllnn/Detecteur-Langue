@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jun 15 2020
+
+@author: Romane GALLIENNE, Cindy PEREIRA
+"""
+
 from sys import argv
 
 from Fonctions import recuperationTextes

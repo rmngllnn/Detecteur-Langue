@@ -1,16 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jun 15 15:25:37 2020
+Created on Mon Jun 15 2020
 
 @author: Romane GALLIENNE, Cindy PEREIRA
 """
-
-'''
-Dans le code, les graphiques sont codés par ordre alphabétique et non par
-ordre d'affichage dans le terminal
-'''
-
 
 import matplotlib.pyplot as plt
 

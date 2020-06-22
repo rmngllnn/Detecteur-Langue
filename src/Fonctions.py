@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sat May  9 10:19:26 2020
+Created on Sat May  9 2020
 
 @authors: Romane GALLIENNE, Cindy PEREIRA
 """
