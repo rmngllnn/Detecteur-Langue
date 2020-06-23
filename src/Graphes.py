@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from Evaluation import *
 
 
-#Pour comparer cosinus/distance euclidienne finale (pour l'évaluation)
+# Pour comparer la similarite cosinus et la distance euclidienne
 
 fig = plt.figure()
 

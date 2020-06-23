@@ -51,7 +51,7 @@ def calculLangue(liste1, liste2, langue, dicoTrain, n) :
     sim1, sim2 = similarite(dicoTrain, langue, n)
     liste1.append(sim1)
     liste2.append(sim2)
-    print(langue, "cos ->", sim1, "DE ->", sim2)
+    print(langue, ": cos ->", sim1, "DE ->", sim2)
 
 langues = ["allemand", "anglais", "espagnol", "francais", "portugais"]
 

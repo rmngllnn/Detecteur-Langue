@@ -3,8 +3,8 @@
 Auteurs : *GALLIENNE Romane, PEREIRA Cindy*
 
 
-**Pour Detection, il est absolument nécessaire d'entrer un n. Pour les autres fonctionnalités du programme, si n n'est pas précisé, 2 est pris par défaut.**
-**Se placer dans le répertoire src avant de lancer le programme.**
+**Avant de lancer les différents programmes, se placer dans le répertoire src du projet.**
+**Pour exécuter la Detection, il est absolument nécessaire d'entrer un n. Pour les autres fonctionnalités du programme, si n n'est pas précisé, 2 est pris par défaut.**
 *cd L3GroupeBDetection/src*
 
 

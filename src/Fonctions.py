@@ -36,7 +36,7 @@ def numb_less(texte):
 #crée un dictionnaire
 def createDico(texte, n) :
     list_ngrams = list(ngrams(texte, n))
-    dico = {} #on crée un dictionnaire vide
+    dico = {}
     for gram in list_ngrams :
         if gram not in dico:
             dico[gram] = 0

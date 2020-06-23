@@ -33,12 +33,14 @@ for langue in langues :
     textes.extend(recuperationTextes(langue))
 
 
-# 0 <= i <= 8 : allemand
+# Indices de chaque langue :
+# 0 <= i <= 8 : Allemand
 # 9 <= i <= 17 : Anglais
 # 18 <= i <= 26 : Espagnol
 # 27 <= i <= 35 : Francais
-# 36 <= i <= 44 : portugais
+# 36 <= i <= 44 : Portugais
 
+# Creation de la liste des langues
 languesTextes = ["allemand"]*9
 languesTextes.extend(["anglais"]*9)
 languesTextes.extend(["espagnol"]*9)
@@ -52,6 +54,7 @@ i = 0
 
 # Pour chaque texte du corpus, on trouve la langue la plus proche
 for texte in textes :
+    print("Texte", i+1, ":")
     tailleTextes.append(len(texte))
     texte = numb_less(texte)
     dicoTrain = createDico(texte, n)
@@ -62,7 +65,6 @@ for texte in textes :
 
     indCos = maxSim(liste1)
     indDE = minSim(liste2)
-    #indDE = maxSim(liste2)
 
     # Si la langue trouvée est correcte, alors on ajoute un True, sinon un False
     if langues[indCos] == languesTextes[i] :
@@ -76,7 +78,7 @@ for texte in textes :
         testsDE.append(False)
 
     i+=1
-    #print()
+    print()
 
 
 # Renvoie le nombre de bons résultats
@@ -118,5 +120,5 @@ def pourcentageParTaille(tailleTextes, testsCos) :
 
 
 
-print("Cos :", evaluation(testsCos)*100/len(testsCos), "/", 100)
-print("DE :", evaluation(testsDE)*100/len(testsDE), "/", 100)
+print("Pourcentage de réussite pour la similarité cosinus :", evaluation(testsCos)*100/len(testsCos), "/", 100)
+print("Pourcentage de réussite pour la distance euclidienne :", evaluation(testsDE)*100/len(testsDE), "/", 100)
